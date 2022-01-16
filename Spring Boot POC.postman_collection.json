@@ -1,0 +1,82 @@
+{
+	"info": {
+		"_postman_id": "4f276e73-2a45-440f-a065-5d48deed9c62",
+		"name": "Spring Boot POC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/greetings",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function (){",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"Body includes expected greeting\", function (){",
+							"    pm.expect(pm.response.text()).to.include(\"Greetings from Spring Boot!\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/greetings"
+			},
+			"response": []
+		},
+		{
+			"name": "/data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function (){",
+							"    pm.response.to.have.status(200)",
+							"",
+							"});",
+							"",
+							"pm.test(\"Body status code is 200\"), function(){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.statusCode).to.eql(\"200\");",
+							"}",
+							"",
+							"pm.test(\"Status descrition is success\"), function(){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.statusDescription).to.eql(\"Success\");",
+							"}",
+							"",
+							"pm.test(\"Body includes data\"), function(){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data).to.eql(\"This is the data. This can be any data type.\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/data"
+			},
+			"response": []
+		},
+		{
+			"name": "/weather/chicago",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/weather/chicago"
+			},
+			"response": []
+		}
+	]
+}

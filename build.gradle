@@ -15,7 +15,14 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation group: 'org.apache.clerezza.ext', name: 'org.json.simple', version: '0.4'}
+	implementation group: 'org.apache.clerezza.ext', name: 'org.json.simple', version: '0.4'
+
+	// https://stackoverflow.com/questions/42839126/configurationproperties-spring-boot-configuration-annotation-processor-not-foun
+	annotationProcessor group: 'org.springframework.boot', name: 'spring-boot-configuration-processor'
+	// https://projectlombok.org
+	compileOnly 'org.projectlombok:lombok:1.18.22'
+	annotationProcessor 'org.projectlombok:lombok:1.18.22'
+}
 
 test {
 	useJUnitPlatform()

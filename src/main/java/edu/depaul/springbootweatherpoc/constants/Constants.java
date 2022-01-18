@@ -8,4 +8,3 @@ public class Constants {
 
     public static final String CITY_DATA_ENDPOINT = "http://api.openweathermap.org/data/2.5/weather?q=";
 }
-w

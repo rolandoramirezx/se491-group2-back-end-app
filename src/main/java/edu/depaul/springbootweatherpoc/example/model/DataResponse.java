@@ -1,4 +1,4 @@
-package edu.depaul.springbootweatherpoc.model;
+package edu.depaul.springbootweatherpoc.example.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

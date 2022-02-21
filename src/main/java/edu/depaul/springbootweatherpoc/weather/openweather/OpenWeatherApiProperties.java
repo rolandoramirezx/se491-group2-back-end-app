@@ -14,5 +14,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration("openWeatherApiProperties")
 public class OpenWeatherApiProperties {
     String apiBaseUrl;
+    String apiGeoBaseUrl;
+    String apiZipGeoBaseUrl;
+    String apiOneCallBaseUrl;
     String apiKey;
 }

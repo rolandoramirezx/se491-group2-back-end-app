@@ -18,7 +18,7 @@ public class OpenWeatherApiRepository {
         this.restTemplate = new RestTemplate();
     }
 
-    private Geolocation getGeolocationForCity(String city){
+    private Geolocation getGeolocationForCity(String city) {
         Geolocation res = new Geolocation();
 
         //call OpenWeather's geolocation API
@@ -30,9 +30,9 @@ public class OpenWeatherApiRepository {
 
         JSONParser jsonParser = new JSONParser();
         JSONArray responseBody = new JSONArray();
-        try{
+        try {
             responseBody = (JSONArray) jsonParser.parse(response.getBody());
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Failed getting city geolocation");
         }
         JSONObject firstResult = (JSONObject) responseBody.get(0);
@@ -43,7 +43,7 @@ public class OpenWeatherApiRepository {
         return res;
     }
 
-    private Geolocation getGeolocationForZip(int zipCode){
+    private Geolocation getGeolocationForZip(int zipCode) {
         Geolocation res = new Geolocation();
 
         //call OpenWeather's geolocation API
@@ -55,9 +55,9 @@ public class OpenWeatherApiRepository {
 
         JSONParser jsonParser = new JSONParser();
         JSONObject responseBody = new JSONObject();
-        try{
+        try {
             responseBody = (JSONObject) jsonParser.parse(response.getBody());
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Failed getting city geolocation");
         }
 
@@ -79,9 +79,9 @@ public class OpenWeatherApiRepository {
         ResponseEntity<String> response = this.restTemplate.getForEntity(path, String.class);
         JSONParser jsonParser = new JSONParser();
         JSONObject responseBody = new JSONObject();
-        try{
+        try {
             responseBody = (JSONObject) jsonParser.parse(response.getBody());
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Failed getting city geolocation");
         }
 
@@ -94,12 +94,19 @@ public class OpenWeatherApiRepository {
 
         String path = String.format("%s?lat=%s&lon=%s&appid=%s",
                 this.openWeatherApiProperties.getApiOneCallBaseUrl(),
-                geo.getLongitude(),
+                geo.getLatitude(),
                 geo.getLongitude(),
                 this.openWeatherApiProperties.getApiKey());
-        ResponseEntity<JSONObject> response = this.restTemplate.getForEntity(path, JSONObject.class);
+        ResponseEntity<String> response = this.restTemplate.getForEntity(path, String.class);
+        JSONParser jsonParser = new JSONParser();
+        JSONObject responseBody = new JSONObject();
+        try {
+            responseBody = (JSONObject) jsonParser.parse(response.getBody());
+        } catch (Exception e) {
+            System.out.println("Failed getting city geolocation");
+        }
 
-        return response.getBody();
+        return responseBody;
     }
 
     public JSONObject getWeather(Double lat, Double lng) {
@@ -108,8 +115,15 @@ public class OpenWeatherApiRepository {
                 lat,
                 lng,
                 this.openWeatherApiProperties.getApiKey());
-        ResponseEntity<JSONObject> response = this.restTemplate.getForEntity(path, JSONObject.class);
+        ResponseEntity<String> response = this.restTemplate.getForEntity(path, String.class);
+        JSONParser jsonParser = new JSONParser();
+        JSONObject responseBody = new JSONObject();
+        try {
+            responseBody = (JSONObject) jsonParser.parse(response.getBody());
+        } catch (Exception e) {
+            System.out.println("Failed getting city geolocation");
+        }
 
-        return response.getBody();
+        return responseBody;
     }
 }

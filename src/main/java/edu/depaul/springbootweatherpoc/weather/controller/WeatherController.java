@@ -23,12 +23,12 @@ public class WeatherController {
     }
 
     @GetMapping("/zip/{zipCode}")
-    public JSONObject getWeatherDataByCity(@PathVariable("zipCode") int zipCode) {
+    public WeatherResult getWeatherDataByCity(@PathVariable("zipCode") int zipCode) {
         return this.weatherService.getWeather(zipCode);
     }
 
     @GetMapping("/current-location/{lat}/{lng}")
-    public JSONObject getWeatherDataByCity(@PathVariable("lat") Double lat, @PathVariable("lat") Double lng) {
+    public WeatherResult getWeatherDataByCity(@PathVariable("lat") Double lat, @PathVariable("lat") Double lng) {
         return this.weatherService.getWeather(lat, lng);
     }
 

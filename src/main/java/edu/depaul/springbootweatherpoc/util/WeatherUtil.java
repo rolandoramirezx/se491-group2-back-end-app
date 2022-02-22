@@ -16,17 +16,17 @@ public class WeatherUtil {
 
     /**
      * Method used to filter OpenWeather API response and create a WeatherResult option
-     * @param response - the response from the OpenWeather API
+     * @param openWeatherResponse - the response from the OpenWeather API
      * @return
      */
-    public WeatherResult processOpenWeatherResponse(JSONObject response){
+    public WeatherResult processOpenWeatherResponse(JSONObject openWeatherResponse){
 
         WeatherResult res = new WeatherResult();
 
-        JSONObject current = (JSONObject) response.get("current");
+        JSONObject current = (JSONObject) openWeatherResponse.get("current");
         JSONArray description = (JSONArray) current.get("weather");
-        JSONArray hourly = (JSONArray) response.get("hourly");
-        JSONArray daily = (JSONArray) response.get("daily");
+        JSONArray hourly = (JSONArray) openWeatherResponse.get("hourly");
+        JSONArray daily = (JSONArray) openWeatherResponse.get("daily");
 
         res.setCurrentConditions(getWeather(current,description));
         res.setHourlyForecast(getHourlyForecast(hourly));

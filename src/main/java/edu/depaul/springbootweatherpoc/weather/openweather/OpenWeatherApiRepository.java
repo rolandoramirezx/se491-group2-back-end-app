@@ -102,7 +102,7 @@ public class OpenWeatherApiRepository {
         return response.getBody();
     }
 
-    public JSONObject getWeather(float lat, float lng) {
+    public JSONObject getWeather(Double lat, Double lng) {
         String path = String.format("%s?lat=%s&lon=%s&appid=%s",
                 this.openWeatherApiProperties.getApiOneCallBaseUrl(),
                 lat,

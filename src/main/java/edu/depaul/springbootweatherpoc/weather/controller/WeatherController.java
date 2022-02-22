@@ -1,7 +1,7 @@
 package edu.depaul.springbootweatherpoc.weather.controller;
 
-import edu.depaul.springbootweatherpoc.weather.WeatherService;
-import org.json.simple.JSONArray;
+import edu.depaul.springbootweatherpoc.service.WeatherService;
+import edu.depaul.springbootweatherpoc.weather.model.WeatherResult;
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +18,7 @@ public class WeatherController {
     }
 
     @GetMapping("/city/{city}")
-    public JSONObject getWeatherDataByCity(@PathVariable("city") String city) {
+    public WeatherResult getWeatherDataByCity(@PathVariable("city") String city) {
         return this.weatherService.getWeather(city);
     }
 
@@ -28,7 +28,7 @@ public class WeatherController {
     }
 
     @GetMapping("/current-location/{lat}/{lng}")
-    public JSONObject getWeatherDataByCity(@PathVariable("lat") float lat, @PathVariable("lat") float lng) {
+    public JSONObject getWeatherDataByCity(@PathVariable("lat") Double lat, @PathVariable("lat") Double lng) {
         return this.weatherService.getWeather(lat, lng);
     }
 

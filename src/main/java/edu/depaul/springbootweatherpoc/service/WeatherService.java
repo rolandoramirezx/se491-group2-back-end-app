@@ -1,5 +1,8 @@
-package edu.depaul.springbootweatherpoc.weather;
+package edu.depaul.springbootweatherpoc.service;
 
+import edu.depaul.springbootweatherpoc.util.WeatherUtil;
+import edu.depaul.springbootweatherpoc.weather.model.Weather;
+import edu.depaul.springbootweatherpoc.weather.model.WeatherResult;
 import edu.depaul.springbootweatherpoc.weather.openweather.OpenWeatherApiRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -13,15 +16,19 @@ public class WeatherService {
         this.openWeatherApiRepository = openWeatherApiRepository;
     }
 
-    public JSONObject getWeather(String city) {
-        return this.openWeatherApiRepository.getWeather(city);
+    public WeatherResult getWeather(String city) {
+        WeatherUtil weatherUtil = new WeatherUtil();
+        JSONObject res = this.openWeatherApiRepository.getWeather(city);
+        WeatherResult weatherResult = new WeatherResult();
+        weatherResult = weatherUtil.processOpenWeatherResponse(res);
+        return weatherResult;
     }
 
     public JSONObject getWeather(int zipCode) {
         return this.openWeatherApiRepository.getWeather(zipCode);
     }
 
-    public JSONObject getWeather(float lat, float lng) {
+    public JSONObject getWeather(Double lat, Double lng) {
         return this.openWeatherApiRepository.getWeather(lat, lng);
     }
 }

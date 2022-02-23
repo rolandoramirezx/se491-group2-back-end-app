@@ -101,7 +101,7 @@ public class OpenWeatherApiRepository {
 
         Geolocation geo = getGeolocationForCity(city);
 
-        String path = String.format("%s?lat=%s&lon=%s&appid=%s",
+        String path = String.format("%s?lat=%s&lon=%s&appid=%s&units=imperial",
                 this.openWeatherApiProperties.getApiOneCallBaseUrl(),
                 geo.getLatitude(),
                 geo.getLongitude(),
@@ -126,7 +126,7 @@ public class OpenWeatherApiRepository {
 
         Geolocation geo = getGeolocationForZip(Zipcode);
 
-        String path = String.format("%s?lat=%s&lon=%s&appid=%s",
+        String path = String.format("%s?lat=%s&lon=%s&appid=%s&units=imperial",
                 this.openWeatherApiProperties.getApiOneCallBaseUrl(),
                 geo.getLatitude(),
                 geo.getLongitude(),
@@ -151,7 +151,7 @@ public class OpenWeatherApiRepository {
 
         Geolocation geo = getGeoLocationForCurrentLocation(lat, lng);
 
-        String path = String.format("%s?lat=%s&lon=%s&appid=%s",
+        String path = String.format("%s?lat=%s&lon=%s&appid=%s&units=imperial",
                 this.openWeatherApiProperties.getApiOneCallBaseUrl(),
                 lat,
                 lng,

@@ -16,6 +16,7 @@ public class OpenWeatherApiProperties {
     String apiBaseUrl;
     String apiGeoBaseUrl;
     String apiZipGeoBaseUrl;
+    String apiReverseGeoBaseUrl;
     String apiOneCallBaseUrl;
     String apiKey;
 }

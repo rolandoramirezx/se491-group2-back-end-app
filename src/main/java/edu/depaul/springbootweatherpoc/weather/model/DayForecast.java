@@ -4,14 +4,16 @@ import java.util.Date;
 
 public class DayForecast {
 
-    private enum day {
-        MONDAY,
-        TUESDAY,
-        WEDNESDAY,
-        THURSDAY,
-        FRIDAY,
-        SATURDAY,
-        SUNDAY
+    private String day;
+    private Date date;
+    private Weather weather;
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 
     public Date getDate() {
@@ -29,8 +31,5 @@ public class DayForecast {
     public void setWeather(Weather weather) {
         this.weather = weather;
     }
-
-    private Date date;
-    private Weather weather;
 
 }

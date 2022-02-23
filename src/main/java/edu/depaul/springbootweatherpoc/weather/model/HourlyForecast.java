@@ -4,16 +4,16 @@ import java.util.Date;
 
 public class HourlyForecast {
 
-    private Enum day;
+    private String day;
     private Date date;
     private int hour;
     private Weather weather;
 
-    public Enum getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(Enum day) {
+    public void setDay(String day) {
         this.day = day;
     }
 

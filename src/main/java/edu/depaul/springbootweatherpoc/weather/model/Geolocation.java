@@ -4,6 +4,7 @@ public class Geolocation {
 
     private Double latitude;
     private Double longitude;
+    private String cityName;
 
     public Double getLatitude() {
         return latitude;
@@ -19,5 +20,13 @@ public class Geolocation {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 }

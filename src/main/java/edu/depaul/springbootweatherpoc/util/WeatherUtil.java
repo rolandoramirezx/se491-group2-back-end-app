@@ -150,8 +150,6 @@ public class WeatherUtil {
      */
     private DayForecast getTomorrowForecast(JSONArray daily) {
 
-        ArrayList<DayForecast> list = new ArrayList<>();
-
         //we start by getting the second forecast in the array, as that is tomorrow's forecast
         JSONObject forecast = (JSONObject) daily.get(1);
 
@@ -168,7 +166,7 @@ public class WeatherUtil {
             //the OpenWeather API stores daily temperature in its own object (instead of single value)
             // so, we need to choose which temperature to use in our Weather object
             JSONObject temp = ((JSONObject) forecast.get("temp"));
-            Double dayTemperature = (Double) temp.get("day");
+            Double dayTemperature = (Double)temp.get("day");
             weather.setTemp(dayTemperature);
         } catch (Exception e) {
             System.out.println("unable to convert temp to double");

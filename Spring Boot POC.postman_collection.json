@@ -70,11 +70,29 @@
 			"response": []
 		},
 		{
-			"name": "/weather/chicago",
+			"name": "/weather/citychicago",
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "localhost:8080/weather/chicago"
+				"url": "localhost:8080/weather/city/boston"
+			},
+			"response": []
+		},
+		{
+			"name": "/weather/zip/60632",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/weather/zip/60632"
+			},
+			"response": []
+		},
+		{
+			"name": "/weather/current-location/41.8093/-87.7052",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/weather/current-location/41.8093/-87.7052"
 			},
 			"response": []
 		}

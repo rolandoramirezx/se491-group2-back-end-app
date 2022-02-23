@@ -60,7 +60,7 @@ public class OpenWeatherApiRepository {
         try {
             responseBody = (JSONObject) jsonParser.parse(response.getBody());
         } catch (Exception e) {
-            System.out.println("Failed getting city geolocation");
+            System.out.println("Failed getting zip geolocation");
         }
 
         //set latitude and longitude
@@ -82,17 +82,18 @@ public class OpenWeatherApiRepository {
         ResponseEntity<String> response = this.restTemplate.getForEntity(path, String.class);
 
         JSONParser jsonParser = new JSONParser();
-        JSONObject responseBody = new JSONObject();
+        JSONArray responseBody = new JSONArray();
         try {
-            responseBody = (JSONObject) jsonParser.parse(response.getBody());
+            responseBody = (JSONArray) jsonParser.parse(response.getBody());
         } catch (Exception e) {
-            System.out.println("Failed getting city geolocation");
+            System.out.println("Failed getting reverse geolocation");
         }
 
         //set latitude and longitude
-        res.setLatitude((Double) responseBody.get("lat"));
-        res.setLongitude((Double) responseBody.get("lon"));
-        res.setCityName((String) responseBody.get("name"));
+        JSONObject firstResult = (JSONObject) responseBody.get(0);
+        res.setLatitude((Double) firstResult.get("lat"));
+        res.setLongitude((Double) firstResult.get("lon"));
+        res.setCityName((String) firstResult.get("name"));
         return res;
     }
 
@@ -111,7 +112,7 @@ public class OpenWeatherApiRepository {
         try {
             responseBody = (JSONObject) jsonParser.parse(response.getBody());
         } catch (Exception e) {
-            System.out.println("Failed getting city geolocation");
+            System.out.println("Failed getting weather data\"");
         }
 
         OpenWeatherResponse openWeatherResponse = new OpenWeatherResponse();
@@ -136,7 +137,7 @@ public class OpenWeatherApiRepository {
         try {
             responseBody = (JSONObject) jsonParser.parse(response.getBody());
         } catch (Exception e) {
-            System.out.println("Failed getting city geolocation");
+            System.out.println("Failed getting weather data\"");
         }
 
         OpenWeatherResponse openWeatherResponse = new OpenWeatherResponse();
@@ -161,7 +162,7 @@ public class OpenWeatherApiRepository {
         try {
             responseBody = (JSONObject) jsonParser.parse(response.getBody());
         } catch (Exception e) {
-            System.out.println("Failed getting city geolocation");
+            System.out.println("Failed getting weather data");
         }
 
         OpenWeatherResponse openWeatherResponse = new OpenWeatherResponse();

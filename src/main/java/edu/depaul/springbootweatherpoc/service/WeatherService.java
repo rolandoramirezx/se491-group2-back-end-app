@@ -2,10 +2,8 @@ package edu.depaul.springbootweatherpoc.service;
 
 import edu.depaul.springbootweatherpoc.util.WeatherUtil;
 import edu.depaul.springbootweatherpoc.weather.model.OpenWeatherResponse;
-import edu.depaul.springbootweatherpoc.weather.model.Weather;
 import edu.depaul.springbootweatherpoc.weather.model.WeatherResult;
 import edu.depaul.springbootweatherpoc.weather.openweather.OpenWeatherApiRepository;
-import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 @Service

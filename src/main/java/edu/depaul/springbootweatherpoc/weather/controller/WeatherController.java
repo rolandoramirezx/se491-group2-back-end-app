@@ -1,8 +1,8 @@
 package edu.depaul.springbootweatherpoc.weather.controller;
 
+import edu.depaul.springbootweatherpoc.service.PrecautionService;
 import edu.depaul.springbootweatherpoc.service.WeatherService;
 import edu.depaul.springbootweatherpoc.weather.model.WeatherResult;
-import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,24 +12,32 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("weather")
 public class WeatherController {
     private final WeatherService weatherService;
+    private final PrecautionService precautionService;
 
-    public WeatherController(WeatherService weatherService) {
+    public WeatherController(WeatherService weatherService, PrecautionService precautionService) {
         this.weatherService = weatherService;
+        this.precautionService = precautionService;
     }
 
     @GetMapping("/city/{city}")
     public WeatherResult getWeatherDataByCity(@PathVariable("city") String city) {
-        return this.weatherService.getWeather(city);
+        WeatherResult weatherResult = this.weatherService.getWeather(city);
+        weatherResult.setPrecaution(precautionService.generatePrecaution(weatherResult.getCurrentConditions()));
+        return weatherResult;
     }
 
     @GetMapping("/zip/{zipCode}")
     public WeatherResult getWeatherDataByCity(@PathVariable("zipCode") int zipCode) {
-        return this.weatherService.getWeather(zipCode);
+        WeatherResult weatherResult = this.weatherService.getWeather(zipCode);
+        weatherResult.setPrecaution(precautionService.generatePrecaution(weatherResult.getCurrentConditions()));
+        return weatherResult;
     }
 
     @GetMapping("/current-location/{lat}/{lng}")
     public WeatherResult getWeatherDataByCity(@PathVariable("lat") Double lat, @PathVariable("lat") Double lng) {
-        return this.weatherService.getWeather(lat, lng);
+        WeatherResult weatherResult = this.weatherService.getWeather(lat, lng);
+        weatherResult.setPrecaution(precautionService.generatePrecaution(weatherResult.getCurrentConditions()));
+        return weatherResult;
     }
 
 }

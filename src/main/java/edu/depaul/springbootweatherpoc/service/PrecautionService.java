@@ -20,16 +20,35 @@ public class PrecautionService {
 
         Precaution precaution = new Precaution();
 
-        //this is an example of the logic we're looking for
-        //you can just check for any "main" descriptions, more details at https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
         if(currentConditions.getDescription().contains("thunderstorm")){
-            precaution.setPrecaution("bring an umbrella");
+            precaution.setPrecaution("stay inside a sturdy building or shelter");
         } else if (currentConditions.getDescription().contains("drizzle")){
             precaution.setPrecaution("wear a light rain jacket");
+        } else if (currentConditions.getDescription().contains("rain")){
+            precaution.setPrecaution("bring an umbrella");
+        } else if (currentConditions.getDescription().contains("snow")){
+            precaution.setPrecaution("dress properly for a cold weather");
+        } else if (currentConditions.getDescription().contains("mist")){
+            precaution.setPrecaution("caution is required due to the lack of visibility");
+        } else if (currentConditions.getDescription().contains("smoke")){
+            precaution.setPrecaution("caution is required due to the lack of visibility");
+        } else if (currentConditions.getDescription().contains("haze")){
+            precaution.setPrecaution("caution is required due to the lack of visibility");
+        } else if (currentConditions.getDescription().contains("dust")){
+            precaution.setPrecaution("wear a mask and watch your steps");
+        } else if (currentConditions.getDescription().contains("ash")){
+            precaution.setPrecaution("wear a mask and watch your steps");
+        } else if (currentConditions.getDescription().contains("squall")){
+            precaution.setPrecaution("stay inside a sturdy building or shelter");
+        } else if (currentConditions.getDescription().contains("tornado")){
+            precaution.setPrecaution("stay inside a sturdy building or shelter");
+        } else if (currentConditions.getDescription().contains("clear")){
+            precaution.setPrecaution("the weather is good for going out");
+        } else if (currentConditions.getDescription().contains("could")){
+            precaution.setPrecaution("bring an umbrella");
         } else{
             precaution.setPrecaution("this is a precaution");
         }
-
         return precaution;
     }
 }

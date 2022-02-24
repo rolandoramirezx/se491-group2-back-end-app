@@ -18,6 +18,7 @@ dependencies {
 	implementation group: 'org.apache.clerezza.ext', name: 'org.json.simple', version: '0.4'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.flywaydb:flyway-core:8.4.2'
+	implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	// https://stackoverflow.com/questions/42839126/configurationproperties-spring-boot-configuration-annotation-processor-not-foun

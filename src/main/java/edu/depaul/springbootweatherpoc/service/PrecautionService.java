@@ -44,7 +44,7 @@ public class PrecautionService {
             precaution.setPrecaution("stay inside a sturdy building or shelter");
         } else if (currentConditions.getDescription().contains("clear")){
             precaution.setPrecaution("the weather is good for going out");
-        } else if (currentConditions.getDescription().contains("could")){
+        } else if (currentConditions.getDescription().contains("cloud")){
             precaution.setPrecaution("bring an umbrella");
         } else{
             precaution.setPrecaution("this is a precaution");

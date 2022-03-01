@@ -54,7 +54,8 @@ public class WeatherUtil {
         res.setWindSpeed((Double) current.get("wind_speed"));
         res.setClouds((Long) current.get("clouds"));
         res.setHumidity((Long) current.get("humidity"));
-        res.setDescription((String) weather.get("description"));
+        String mainDescription = getMainDescription((String) weather.get("description"));
+        res.setDescription(mainDescription);
 
         return res;
     }
@@ -101,7 +102,8 @@ public class WeatherUtil {
             weather.setHumidity((Long) jsonObject.get("humidity"));
             JSONArray currentWeather = (JSONArray) jsonObject.get("weather");
             JSONObject description = (JSONObject) currentWeather.get(0);
-            weather.setDescription((String) description.get("description"));
+            String mainDescription = getMainDescription((String) description.get("description"));
+            weather.setDescription(mainDescription);
             hourlyForecast.setWeather(weather);
 
             list.add(hourlyForecast);
@@ -151,7 +153,8 @@ public class WeatherUtil {
             weather.setHumidity((Long) jsonObject.get("humidity"));
             JSONArray currentWeather = (JSONArray) jsonObject.get("weather");
             JSONObject description = (JSONObject) currentWeather.get(0);
-            weather.setDescription((String) description.get("description"));
+            String mainDescription = getMainDescription((String) description.get("description"));
+            weather.setDescription(mainDescription);
             dayForecast.setWeather(weather);
 
             list.add(dayForecast);
@@ -200,7 +203,8 @@ public class WeatherUtil {
         weather.setHumidity((Long) forecast.get("humidity"));
         JSONArray currentWeather = (JSONArray) forecast.get("weather");
         JSONObject description = (JSONObject) currentWeather.get(0);
-        weather.setDescription((String) description.get("description"));
+        String mainDescription = getMainDescription((String) description.get("description"));
+        weather.setDescription(mainDescription);
         dayForecast.setWeather(weather);
 
         return dayForecast;
@@ -247,6 +251,45 @@ public class WeatherUtil {
                 return "Saturday";
             default:
                 return "Invalid day";
+        }
+    }
+
+    /**
+     * Method to convert description provided by OpenWeather into a "Main" description
+     * @param description the description provided by OpenWeather
+     * @return
+     */
+    public String getMainDescription(String description){
+        if (description.contains("thunderstorm")){
+            return "Thunderstorm";
+        } else if (description.contains("drizzle")){
+            return "Drizzle";
+        } else if (description.contains("rain")){
+            return "Rain";
+        } else if (description.contains("snow")){
+            return "Snow";
+        } else if (description.contains("mist")){
+            return "Mist";
+        } else if (description.toLowerCase().contains("smoke")){
+            return "Smoke";
+        } else if (description.toLowerCase().contains("haze")){
+            return "Haze";
+        } else if (description.contains("dust")){
+            return "Dust";
+        } else if(description.contains("fog")){
+            return "Fog";
+        } else if (description.contains("sand")){
+            return "Sand";
+        } else if (description.contains("ash")){
+            return "Ash";
+        } else if (description.contains("squalls")){
+            return "Squalls";
+        } else if (description.contains("clear")){
+            return "Clear";
+        } else if (description.contains("clouds")){
+            return "Clouds";
+        } else {
+            return "Invalid description";
         }
     }
 

@@ -2,13 +2,13 @@ package edu.depaul.springbootweatherpoc.weather.model;
 
 public class Precaution {
 
-    private String precaution;
+    private String message;
 
-    public String getPrecaution() {
-        return precaution;
+    public String getMessage() {
+        return message;
     }
 
-    public void setPrecaution(String precaution) {
-        this.precaution = precaution;
+    public void setMessage (String message) {
+        this.message = message;
     }
 }

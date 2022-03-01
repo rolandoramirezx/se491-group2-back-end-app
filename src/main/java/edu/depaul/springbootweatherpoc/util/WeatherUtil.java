@@ -27,6 +27,7 @@ public class WeatherUtil {
         JSONArray description = (JSONArray) current.get("weather");
         JSONArray hourly = (JSONArray) weatherData.get("hourly");
         JSONArray daily = (JSONArray) weatherData.get("daily");
+        JSONArray alerts = (JSONArray) weatherData.get("alerts");
 
         res.setCurrentConditions(getWeather(current, description));
         res.setHourlyForecast(getHourlyForecast(hourly));
@@ -34,6 +35,7 @@ public class WeatherUtil {
         res.setTomorrowForecast(getTomorrowForecast(daily));
         res.setCurrentLocation(getLocation(openWeatherResponse.getGeolocation()));
         res.setGeneratedTimestamp(new Date());
+        res.setAlert(getAlert(alerts));
 
         return res;
     }
@@ -291,6 +293,26 @@ public class WeatherUtil {
         } else {
             return "Invalid description";
         }
+    }
+
+    public Alert getAlert(JSONArray alerts){
+
+        Alert alert = new Alert();
+
+        try{
+            JSONObject firstAlert = (JSONObject) alerts.get(0);
+            String event = (String) firstAlert.get("event");
+            String description = (String) firstAlert.get("description");
+
+            alert.setTitle(event);
+            alert.setMessage(description);
+        } catch (Exception e){
+            System.out.println("No weather alert in OpenWeather response");
+            alert.setMessage("None");
+            alert.setTitle("None");
+        }
+
+        return alert;
     }
 
 }

@@ -4,16 +4,16 @@ import java.util.Date;
 
 public class DayForecast {
 
-    private String day;
+    private String dayOfWeek;
     private Date date;
     private Weather weather;
 
-    public String getDay() {
-        return day;
+    public String getDayOfWeek() {
+        return dayOfWeek;
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     public Date getDate() {

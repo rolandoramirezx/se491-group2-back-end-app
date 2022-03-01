@@ -5,8 +5,8 @@ public class Weather {
     private Double temp;
     private Long humidity;
     private Double windSpeed;
-    private Long clouds;
-    private String description;
+    private Long currentClouds;
+    private String weatherDescription;
 
     public Double getTemp() {
         return temp;
@@ -32,19 +32,19 @@ public class Weather {
         this.windSpeed = windSpeed;
     }
 
-    public Long getClouds() {
-        return clouds;
+    public Long getCurrentClouds() {
+        return currentClouds;
     }
 
-    public void setClouds(Long clouds) {
-        this.clouds = clouds;
+    public void setClouds(Long currentClouds) {
+        this.currentClouds = currentClouds;
     }
 
-    public String getDescription() {
-        return description;
+    public String getWeatherDescription() {
+        return weatherDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setWeatherDescription(String weatherDescription) {
+        this.weatherDescription = weatherDescription;
     }
 }

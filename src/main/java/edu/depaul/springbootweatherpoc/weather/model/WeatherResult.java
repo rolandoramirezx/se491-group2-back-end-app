@@ -5,8 +5,8 @@ import java.util.Date;
 
 public class WeatherResult {
 
-    private Date date;
-    private Location location;
+    private Date generatedTimestamp;
+    private Location currentLocation;
     private Weather currentConditions;
     private DayForecast tomorrowForecast;
     private DayForecast[] dayForecasts;
@@ -15,20 +15,20 @@ public class WeatherResult {
     private Alert alert;
 //        private Location[] recentlyViewLocations;
 
-    public Date getDate() {
-        return date;
+    public Date getGeneratedTimestamp() {
+        return generatedTimestamp;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setGeneratedTimestamp(Date generatedTimestamp) {
+        this.generatedTimestamp = generatedTimestamp;
     }
 
-    public Location getLocation() {
-        return location;
+    public Location getCurrentLocation() {
+        return currentLocation;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setCurrentLocation(Location location) {
+        this.currentLocation = location;
     }
 
     public Weather getCurrentConditions() {
@@ -82,8 +82,8 @@ public class WeatherResult {
     @Override
     public String toString() {
         return "WeatherResult{" +
-                "date=" + date +
-                ", location=" + location +
+                "generatedTimestamp=" + generatedTimestamp +
+                ", currentLocation=" + currentLocation +
                 ", currentConditions=" + currentConditions +
                 ", tomorrowForecast=" + tomorrowForecast +
                 ", dayForecasts=" + Arrays.toString(dayForecasts) +

@@ -32,8 +32,8 @@ public class WeatherUtil {
         res.setHourlyForecast(getHourlyForecast(hourly));
         res.setDayForecasts(getDailyForecast(daily));
         res.setTomorrowForecast(getTomorrowForecast(daily));
-        res.setLocation(getLocation(openWeatherResponse.getGeolocation()));
-        res.setDate(new Date());
+        res.setCurrentLocation(getLocation(openWeatherResponse.getGeolocation()));
+        res.setGeneratedTimestamp(new Date());
 
         return res;
     }
@@ -55,7 +55,7 @@ public class WeatherUtil {
         res.setClouds((Long) current.get("clouds"));
         res.setHumidity((Long) current.get("humidity"));
         String mainDescription = getMainDescription((String) weather.get("description"));
-        res.setDescription(mainDescription);
+        res.setWeatherDescription(mainDescription);
 
         return res;
     }
@@ -103,7 +103,7 @@ public class WeatherUtil {
             JSONArray currentWeather = (JSONArray) jsonObject.get("weather");
             JSONObject description = (JSONObject) currentWeather.get(0);
             String mainDescription = getMainDescription((String) description.get("description"));
-            weather.setDescription(mainDescription);
+            weather.setWeatherDescription(mainDescription);
             hourlyForecast.setWeather(weather);
 
             list.add(hourlyForecast);
@@ -131,7 +131,7 @@ public class WeatherUtil {
             Long timestamp = (Long) jsonObject.get("dt");
             java.util.Date time = new java.util.Date(timestamp * 1000);
             dayForecast.setDate(time);
-            dayForecast.setDay(getDay(time.getDay()));
+            dayForecast.setDayOfWeek(getDay(time.getDay()));
 
             weather.setClouds((Long) jsonObject.get("clouds"));
             try {
@@ -154,7 +154,7 @@ public class WeatherUtil {
             JSONArray currentWeather = (JSONArray) jsonObject.get("weather");
             JSONObject description = (JSONObject) currentWeather.get(0);
             String mainDescription = getMainDescription((String) description.get("description"));
-            weather.setDescription(mainDescription);
+            weather.setWeatherDescription(mainDescription);
             dayForecast.setWeather(weather);
 
             list.add(dayForecast);
@@ -181,7 +181,7 @@ public class WeatherUtil {
         Long timestamp = (Long) forecast.get("dt");
         java.util.Date time = new java.util.Date(timestamp * 1000);
         dayForecast.setDate(time);
-        dayForecast.setDay(getDay(time.getDay()));
+        dayForecast.setDayOfWeek(getDay(time.getDay()));
 
         weather.setClouds((Long) forecast.get("clouds"));
         try {
@@ -204,7 +204,7 @@ public class WeatherUtil {
         JSONArray currentWeather = (JSONArray) forecast.get("weather");
         JSONObject description = (JSONObject) currentWeather.get(0);
         String mainDescription = getMainDescription((String) description.get("description"));
-        weather.setDescription(mainDescription);
+        weather.setWeatherDescription(mainDescription);
         dayForecast.setWeather(weather);
 
         return dayForecast;

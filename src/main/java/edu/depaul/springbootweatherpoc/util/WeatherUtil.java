@@ -53,7 +53,12 @@ public class WeatherUtil {
 
         Weather res = new Weather();
         res.setTemp((Double) current.get("temp"));
-        res.setWindSpeed((Double) current.get("wind_speed"));
+        try{
+            res.setWindSpeed((Double) current.get("wind_speed"));
+        } catch (Exception e){
+            Long windSpeed = (Long) current.get("wind_speed");
+            res.setWindSpeed(windSpeed.doubleValue());
+        }
         res.setClouds((Long) current.get("clouds"));
         res.setHumidity((Long) current.get("humidity"));
         String mainDescription = getMainDescription((String) weather.get("description"));

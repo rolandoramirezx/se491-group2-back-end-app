@@ -27,13 +27,15 @@ public class WeatherUtil {
         JSONArray description = (JSONArray) current.get("weather");
         JSONArray hourly = (JSONArray) weatherData.get("hourly");
         JSONArray daily = (JSONArray) weatherData.get("daily");
+        JSONArray alerts = (JSONArray) weatherData.get("alerts");
 
         res.setCurrentConditions(getWeather(current, description));
         res.setHourlyForecast(getHourlyForecast(hourly));
         res.setDayForecasts(getDailyForecast(daily));
         res.setTomorrowForecast(getTomorrowForecast(daily));
-        res.setLocation(getLocation(openWeatherResponse.getGeolocation()));
-        res.setDate(new Date());
+        res.setCurrentLocation(getLocation(openWeatherResponse.getGeolocation()));
+        res.setGeneratedTimestamp(new Date());
+        res.setAlert(getAlert(alerts));
 
         return res;
     }
@@ -51,10 +53,16 @@ public class WeatherUtil {
 
         Weather res = new Weather();
         res.setTemp((Double) current.get("temp"));
-        res.setWindSpeed((Double) current.get("wind_speed"));
+        try{
+            res.setWindSpeed((Double) current.get("wind_speed"));
+        } catch (Exception e){
+            Long windSpeed = (Long) current.get("wind_speed");
+            res.setWindSpeed(windSpeed.doubleValue());
+        }
         res.setClouds((Long) current.get("clouds"));
         res.setHumidity((Long) current.get("humidity"));
-        res.setDescription((String) weather.get("description"));
+        String mainDescription = getMainDescription((String) weather.get("description"));
+        res.setWeatherDescription(mainDescription);
 
         return res;
     }
@@ -101,7 +109,8 @@ public class WeatherUtil {
             weather.setHumidity((Long) jsonObject.get("humidity"));
             JSONArray currentWeather = (JSONArray) jsonObject.get("weather");
             JSONObject description = (JSONObject) currentWeather.get(0);
-            weather.setDescription((String) description.get("description"));
+            String mainDescription = getMainDescription((String) description.get("description"));
+            weather.setWeatherDescription(mainDescription);
             hourlyForecast.setWeather(weather);
 
             list.add(hourlyForecast);
@@ -129,15 +138,17 @@ public class WeatherUtil {
             Long timestamp = (Long) jsonObject.get("dt");
             java.util.Date time = new java.util.Date(timestamp * 1000);
             dayForecast.setDate(time);
-            dayForecast.setDay(getDay(time.getDay()));
+            dayForecast.setDayOfWeek(getDay(time.getDay()));
 
             weather.setClouds((Long) jsonObject.get("clouds"));
             try {
                 //the OpenWeather API stores daily temperature in its own object (instead of single value)
                 // so, we need to choose which temperature to use in our Weather object
                 JSONObject temp = ((JSONObject) jsonObject.get("temp"));
-                Double dayTemperature = (Double) temp.get("day");
-                weather.setTemp(dayTemperature);
+                Double minTemp = (Double) temp.get("min");
+                Double maxTemp = (Double) temp.get("max");
+                Double average = (minTemp + maxTemp) / 2.0;
+                weather.setTemp(average);
             } catch (Exception e) {
                 System.out.println("unable to convert temp to double");
             }
@@ -151,7 +162,8 @@ public class WeatherUtil {
             weather.setHumidity((Long) jsonObject.get("humidity"));
             JSONArray currentWeather = (JSONArray) jsonObject.get("weather");
             JSONObject description = (JSONObject) currentWeather.get(0);
-            weather.setDescription((String) description.get("description"));
+            String mainDescription = getMainDescription((String) description.get("description"));
+            weather.setWeatherDescription(mainDescription);
             dayForecast.setWeather(weather);
 
             list.add(dayForecast);
@@ -178,15 +190,17 @@ public class WeatherUtil {
         Long timestamp = (Long) forecast.get("dt");
         java.util.Date time = new java.util.Date(timestamp * 1000);
         dayForecast.setDate(time);
-        dayForecast.setDay(getDay(time.getDay()));
+        dayForecast.setDayOfWeek(getDay(time.getDay()));
 
         weather.setClouds((Long) forecast.get("clouds"));
         try {
             //the OpenWeather API stores daily temperature in its own object (instead of single value)
             // so, we need to choose which temperature to use in our Weather object
             JSONObject temp = ((JSONObject) forecast.get("temp"));
-            Double dayTemperature = (Double) temp.get("day");
-            weather.setTemp(dayTemperature);
+            Double minTemp = (Double) temp.get("min");
+            Double maxTemp = (Double) temp.get("max");
+            Double average = (minTemp + maxTemp) / 2.0;
+            weather.setTemp(average);
         } catch (Exception e) {
             System.out.println("unable to convert temp to double");
         }
@@ -200,7 +214,8 @@ public class WeatherUtil {
         weather.setHumidity((Long) forecast.get("humidity"));
         JSONArray currentWeather = (JSONArray) forecast.get("weather");
         JSONObject description = (JSONObject) currentWeather.get(0);
-        weather.setDescription((String) description.get("description"));
+        String mainDescription = getMainDescription((String) description.get("description"));
+        weather.setWeatherDescription(mainDescription);
         dayForecast.setWeather(weather);
 
         return dayForecast;
@@ -248,6 +263,64 @@ public class WeatherUtil {
             default:
                 return "Invalid day";
         }
+    }
+
+    /**
+     * Method to convert description provided by OpenWeather into a "Main" description
+     * @param description the description provided by OpenWeather
+     * @return
+     */
+    public String getMainDescription(String description){
+        if (description.contains("thunderstorm")){
+            return "Thunderstorm";
+        } else if (description.contains("drizzle")){
+            return "Drizzle";
+        } else if (description.contains("rain")){
+            return "Rain";
+        } else if (description.contains("snow")){
+            return "Snow";
+        } else if (description.contains("mist")){
+            return "Mist";
+        } else if (description.toLowerCase().contains("smoke")){
+            return "Smoke";
+        } else if (description.toLowerCase().contains("haze")){
+            return "Haze";
+        } else if (description.contains("dust")){
+            return "Dust";
+        } else if(description.contains("fog")){
+            return "Fog";
+        } else if (description.contains("sand")){
+            return "Sand";
+        } else if (description.contains("ash")){
+            return "Ash";
+        } else if (description.contains("squalls")){
+            return "Squalls";
+        } else if (description.contains("clear")){
+            return "Clear";
+        } else if (description.contains("clouds")){
+            return "Clouds";
+        } else {
+            return "Invalid description";
+        }
+    }
+
+    public Alert getAlert(JSONArray alerts){
+
+        Alert alert = new Alert();
+
+        try{
+            JSONObject firstAlert = (JSONObject) alerts.get(0);
+            String event = (String) firstAlert.get("event");
+            String description = (String) firstAlert.get("description");
+
+            alert.setTitle(event);
+            alert.setMessage(description);
+            return alert;
+        } catch (Exception e){
+            System.out.println("No weather alert in OpenWeather response");
+        }
+
+        return null;
     }
 
 }

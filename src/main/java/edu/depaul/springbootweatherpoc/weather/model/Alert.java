@@ -4,15 +4,15 @@ import java.sql.Timestamp;
 
 public class Alert {
 
-    private Timestamp timestamp;
+    private String title;
     private String message;
 
-    public Timestamp getTimestamp() {
-        return timestamp;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getMessage() {

@@ -145,8 +145,10 @@ public class WeatherUtil {
                 //the OpenWeather API stores daily temperature in its own object (instead of single value)
                 // so, we need to choose which temperature to use in our Weather object
                 JSONObject temp = ((JSONObject) jsonObject.get("temp"));
-                Double dayTemperature = (Double) temp.get("day");
-                weather.setTemp(dayTemperature);
+                Double minTemp = (Double) temp.get("min");
+                Double maxTemp = (Double) temp.get("max");
+                Double average = (minTemp + maxTemp) / 2.0;
+                weather.setTemp(average);
             } catch (Exception e) {
                 System.out.println("unable to convert temp to double");
             }
@@ -195,8 +197,10 @@ public class WeatherUtil {
             //the OpenWeather API stores daily temperature in its own object (instead of single value)
             // so, we need to choose which temperature to use in our Weather object
             JSONObject temp = ((JSONObject) forecast.get("temp"));
-            Double dayTemperature = (Double) temp.get("day");
-            weather.setTemp(dayTemperature);
+            Double minTemp = (Double) temp.get("min");
+            Double maxTemp = (Double) temp.get("max");
+            Double average = (minTemp + maxTemp) / 2.0;
+            weather.setTemp(average);
         } catch (Exception e) {
             System.out.println("unable to convert temp to double");
         }

@@ -1,8 +1,11 @@
 package edu.depaul.springbootweatherpoc.weather.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Arrays;
 import java.util.Date;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class WeatherResult {
 
     private Date generatedTimestamp;
@@ -13,7 +16,6 @@ public class WeatherResult {
     private HourlyForecast[] hourlyForecast;
     private Precaution precaution;
     private Alert alert;
-//        private Location[] recentlyViewLocations;
 
     public Date getGeneratedTimestamp() {
         return generatedTimestamp;

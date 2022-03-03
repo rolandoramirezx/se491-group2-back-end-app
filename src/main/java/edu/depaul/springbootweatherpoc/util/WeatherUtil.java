@@ -315,13 +315,12 @@ public class WeatherUtil {
 
             alert.setTitle(event);
             alert.setMessage(description);
+            return alert;
         } catch (Exception e){
             System.out.println("No weather alert in OpenWeather response");
-            alert.setMessage("None");
-            alert.setTitle("None");
         }
 
-        return alert;
+        return null;
     }
 
 }

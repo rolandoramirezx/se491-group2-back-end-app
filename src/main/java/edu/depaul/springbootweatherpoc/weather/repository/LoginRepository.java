@@ -8,7 +8,5 @@ import java.util.List;
 public interface LoginRepository extends JpaRepository<Login, Long> {
 
     List<Login> findLoginById(int id);
-//    List<Login> findLoginByUserName(String userName);
-//    List<Login> findLoginByPassword(String password);
 
 }

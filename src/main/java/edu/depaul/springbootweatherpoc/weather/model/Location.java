@@ -3,7 +3,6 @@ package edu.depaul.springbootweatherpoc.weather.model;
 public class Location {
 
     private String cityName;
-    private int zipCode;
     private Double latitude;
     private Double longitude;
 
@@ -13,14 +12,6 @@ public class Location {
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
-    }
-
-    public int getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(int zipCode) {
-        this.zipCode = zipCode;
     }
 
     public Double getLatitude() {

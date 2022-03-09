@@ -14,7 +14,7 @@ public class Feedback {
     @Column(name="userid")
     private String userId;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = edu.depaul.springbootweatherpoc.weather.entity.User.class)
     @JoinColumn(name = "username")
     private User user;
 

@@ -10,6 +10,11 @@ import org.springframework.context.annotation.Bean;
 
 import org.slf4j.Logger;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @SpringBootApplication
 public class SpringBootWeatherPocApplication {
 
@@ -93,7 +98,7 @@ public class SpringBootWeatherPocApplication {
             location.setLongitude(0.00);
 
             UserLocation userLocationTest = new UserLocation();
-            userLocationTest.setUser(user);
+            userLocationTest.setUsers(user);
             userLocationTest.setLocation(location);
             userLocationTest.setId(0);
 

@@ -1,6 +1,7 @@
 package edu.depaul.springbootweatherpoc.weather.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="USER_LOCATION")
@@ -11,11 +12,11 @@ public class UserLocation {
     @Column(name = "id")
     private int id;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = edu.depaul.springbootweatherpoc.weather.entity.User.class)
     @JoinColumn(name = "username")
     private User user;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = edu.depaul.springbootweatherpoc.weather.entity.Location.class)
     @JoinColumn(name = "zipcode")
     private Location location;
 
@@ -33,7 +34,7 @@ public class UserLocation {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUsers(User user) {
         this.user = user;
     }
 

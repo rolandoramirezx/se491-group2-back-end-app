@@ -11,9 +11,6 @@ public class Feedback {
     @Column(name = "id")
     private int id;
 
-    @Column(name="userid")
-    private String userId;
-
     @ManyToOne(targetEntity = edu.depaul.springbootweatherpoc.weather.entity.User.class)
     @JoinColumn(name = "username")
     private User user;
@@ -30,14 +27,6 @@ public class Feedback {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public User getUser() {
@@ -68,7 +57,6 @@ public class Feedback {
     public String toString() {
         return "Feedback{" +
                 "id=" + id +
-                ", userId='" + userId + '\'' +
                 ", user=" + user +
                 ", rating=" + rating +
                 ", comments='" + comments + '\'' +

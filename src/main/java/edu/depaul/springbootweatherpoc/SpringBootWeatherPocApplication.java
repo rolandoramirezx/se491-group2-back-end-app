@@ -117,7 +117,6 @@ public class SpringBootWeatherPocApplication {
 
             Feedback feedbackTest = new Feedback();
             feedbackTest.setId(0);
-            feedbackTest.setUserId("rramir3");
             feedbackTest.setUser(user);
             feedbackTest.setRating(0);
             feedbackTest.setComments("comments");

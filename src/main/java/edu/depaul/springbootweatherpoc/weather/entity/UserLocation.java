@@ -1,7 +1,6 @@
 package edu.depaul.springbootweatherpoc.weather.entity;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name="USER_LOCATION")
@@ -34,7 +33,7 @@ public class UserLocation {
         return user;
     }
 
-    public void setUsers(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

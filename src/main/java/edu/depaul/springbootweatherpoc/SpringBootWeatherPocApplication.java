@@ -2,18 +2,12 @@ package edu.depaul.springbootweatherpoc;
 
 import edu.depaul.springbootweatherpoc.weather.entity.*;
 import edu.depaul.springbootweatherpoc.weather.repository.*;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import org.slf4j.Logger;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @SpringBootApplication
 public class SpringBootWeatherPocApplication {
@@ -98,7 +92,7 @@ public class SpringBootWeatherPocApplication {
             location.setLongitude(0.00);
 
             UserLocation userLocationTest = new UserLocation();
-            userLocationTest.setUsers(user);
+            userLocationTest.setUser(user);
             userLocationTest.setLocation(location);
             userLocationTest.setId(0);
 

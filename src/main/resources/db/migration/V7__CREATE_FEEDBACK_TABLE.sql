@@ -1,4 +1,4 @@
-CREATE TABLE FEEDBACK (
+CREATE TABLE FEEDBACK2 (
       ID bigint auto_increment primary key not null ,
       userID varchar(100) not null,
       rating  int,

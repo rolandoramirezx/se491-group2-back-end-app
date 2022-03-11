@@ -71,10 +71,11 @@ public class OpenWeatherApiRepository {
     }
 
     private Geolocation getGeoLocationForCurrentLocation(Double lat, Double lng){
+        System.out.printf("Lat: %f | Long: %f", lat, lng);
         Geolocation res = new Geolocation();
 
         //call OpenWeather's geolocation API
-        String path = String.format("%s?lat=%s&lon=%s&appid=%s",
+        String path = String.format("%s?lat=%f&lon=%f&appid=%s",
                 this.openWeatherApiProperties.getApiReverseGeoBaseUrl(),
                 lat,
                 lng,
@@ -151,7 +152,7 @@ public class OpenWeatherApiRepository {
 
         Geolocation geo = getGeoLocationForCurrentLocation(lat, lng);
 
-        String path = String.format("%s?lat=%s&lon=%s&appid=%s&units=imperial",
+        String path = String.format("%s?lat=%f&lon=%f&appid=%s&units=imperial",
                 this.openWeatherApiProperties.getApiOneCallBaseUrl(),
                 lat,
                 lng,

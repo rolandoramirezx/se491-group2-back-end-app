@@ -34,7 +34,7 @@ public class WeatherController {
     }
 
     @GetMapping("/current-location/{lat}/{lng}")
-    public WeatherResult getWeatherDataByCity(@PathVariable("lat") Double lat, @PathVariable("lat") Double lng) {
+    public WeatherResult getWeatherDataByCity(@PathVariable("lat") Double lat, @PathVariable("lng") Double lng) {
         WeatherResult weatherResult = this.weatherService.getWeather(lat, lng);
         weatherResult.setPrecaution(precautionService.generatePrecaution(weatherResult.getCurrentConditions()));
         return weatherResult;

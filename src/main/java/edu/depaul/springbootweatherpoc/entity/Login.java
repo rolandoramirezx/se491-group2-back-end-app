@@ -24,10 +24,6 @@ public class Login {
     @Column(name = "user_name")
     private String userName;
 
-//    @OneToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "user_name")
-//    private User user;
-
     @Override
     public String toString() {
         return "Login{" +

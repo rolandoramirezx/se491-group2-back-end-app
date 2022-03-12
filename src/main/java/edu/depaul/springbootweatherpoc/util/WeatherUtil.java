@@ -1,5 +1,6 @@
 package edu.depaul.springbootweatherpoc.util;
 
+import edu.depaul.springbootweatherpoc.model.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

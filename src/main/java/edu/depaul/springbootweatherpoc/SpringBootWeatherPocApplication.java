@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.time.Instant;
 import java.util.*;
 
 @SpringBootApplication
@@ -51,6 +52,7 @@ public class SpringBootWeatherPocApplication {
                     .zipCode("60632")
                     .latitude(41.8781)
                     .longitude(-87.6298)
+                    .dateCreated(Instant.now())
                     .userName(savedUser.getUserName())
                     .build();
 
@@ -59,6 +61,7 @@ public class SpringBootWeatherPocApplication {
                     .zipCode("60016")
                     .latitude(42.0334)
                     .longitude(-87.8834)
+                    .dateCreated(Instant.now())
                     .userName(savedUser.getUserName())
                     .build();
 

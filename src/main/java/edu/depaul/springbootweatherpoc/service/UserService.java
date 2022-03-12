@@ -1,8 +1,8 @@
 package edu.depaul.springbootweatherpoc.service;
 
-import edu.depaul.springbootweatherpoc.weather.entity.User;
+import edu.depaul.springbootweatherpoc.entity.User;
 import org.springframework.stereotype.Service;
-import edu.depaul.springbootweatherpoc.weather.repository.UserRepository;
+import edu.depaul.springbootweatherpoc.repository.UserRepository;
 
 @Service
 public class UserService {

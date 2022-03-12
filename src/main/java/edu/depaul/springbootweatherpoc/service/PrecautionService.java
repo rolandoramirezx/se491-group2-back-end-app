@@ -1,7 +1,7 @@
 package edu.depaul.springbootweatherpoc.service;
 
-import edu.depaul.springbootweatherpoc.weather.model.Precaution;
-import edu.depaul.springbootweatherpoc.weather.model.Weather;
+import edu.depaul.springbootweatherpoc.model.Precaution;
+import edu.depaul.springbootweatherpoc.model.Weather;
 import org.springframework.stereotype.Service;
 
 @Service

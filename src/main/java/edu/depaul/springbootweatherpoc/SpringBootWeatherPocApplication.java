@@ -1,13 +1,18 @@
 package edu.depaul.springbootweatherpoc;
 
-import edu.depaul.springbootweatherpoc.weather.entity.*;
-import edu.depaul.springbootweatherpoc.weather.repository.*;
+import edu.depaul.springbootweatherpoc.entity.*;
+import edu.depaul.springbootweatherpoc.repository.FeedbackRepository;
+import edu.depaul.springbootweatherpoc.repository.LocationRepository;
+import edu.depaul.springbootweatherpoc.repository.LoginRepository;
+import edu.depaul.springbootweatherpoc.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.*;
 
 @SpringBootApplication
 public class SpringBootWeatherPocApplication {
@@ -19,115 +24,56 @@ public class SpringBootWeatherPocApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(UserRepository repository) {
+    public CommandLineRunner demo(
+            UserRepository userRepository,
+            LoginRepository loginRepository,
+            LocationRepository locationRepository,
+            FeedbackRepository feedbackRepository) {
         return (args) -> {
             //save a user to USERS table
-            User testUser = new User();
-            testUser.setUserName("rramir3");
-            testUser.setFirstName("Rolando");
-            testUser.setLastName("Ramirez");
-            repository.save(testUser);
+            User testUser = User.builder()
+                    .userName("rramir3")
+                    .firstName("Rolando")
+                    .lastName("Ramirez")
+                    .build();
 
-            for (User user : repository.findByUserName("rramir3")) {
-                //iterate over each user (one at this point), and log their information
-                log.info(user.toString());
-            }
+            User savedUser = userRepository.saveAndFlush(testUser);
+            System.out.println(savedUser);
 
-        };
-    }
+            Login testLogin = Login.builder()
+                    .userName(savedUser.getUserName())
+                    .build();
+            testLogin.setUserName(savedUser.getUserName());
+            loginRepository.saveAndFlush(testLogin);
 
-    @Bean
-    public CommandLineRunner locationDemo(LocationRepository repository) {
-        return (args) -> {
+            Location testLocation1 = Location.builder()
+                    .cityName("Chicago")
+                    .zipCode("60632")
+                    .latitude(41.8781)
+                    .longitude(-87.6298)
+                    .userName(savedUser.getUserName())
+                    .build();
 
-            Location testLocation = new Location();
-            testLocation.setCityName("Chicago");
-            testLocation.setZipCode("60632");
-            testLocation.setLatitude(0.00);
-            testLocation.setLongitude(0.00);
-            repository.save(testLocation);
+            Location testLocation2 = Location.builder()
+                    .cityName("Des Plaines")
+                    .zipCode("60016")
+                    .latitude(42.0334)
+                    .longitude(-87.8834)
+                    .userName(savedUser.getUserName())
+                    .build();
 
-            for (Location location : repository.findLocationByCityName("Chicago")) {
-                //iterate over each location (one at this point), and log their information
-                log.info(location.toString());
-            }
+            List<Location> locations = new ArrayList<>();
+            locations.add(testLocation1);
+            locations.add(testLocation2);
+            locationRepository.saveAllAndFlush(locations);
 
-        };
-    }
 
-    @Bean
-    public CommandLineRunner loginDemo(LoginRepository repository) {
-        return (args) -> {
-
-            Login testLogin = new Login();
-            User user = new User();
-            user.setUserName("rramir3");
-            user.setFirstName("Rolando");
-            user.setLastName("Ramirez");
-            testLogin.setUser(user);
-            testLogin.setId(0);
-            repository.save(testLogin);
-
-            for (Login login : repository.findAll()) {
-                //iterate over each login (one at this point), and log their information
-                log.info(login.toString());
-            }
-
-        };
-    }
-
-    @Bean
-    public CommandLineRunner userLocationDemo(UserLocationRepository repository) {
-        return (args) -> {
-
-            User user = new User();
-            user.setUserName("rramir3");
-            user.setFirstName("Rolando");
-            user.setLastName("Ramirez");
-
-            Location location = new Location();
-            location.setCityName("Chicago");
-            location.setZipCode("60632");
-            location.setLatitude(0.00);
-            location.setLongitude(0.00);
-
-            UserLocation userLocationTest = new UserLocation();
-            userLocationTest.setUser(user);
-            userLocationTest.setLocation(location);
-            userLocationTest.setId(0);
-
-            repository.save(userLocationTest);
-
-            for (UserLocation userLocation : repository.findAll()) {
-                //iterate over each user location (one at this point), and log their information
-                log.info(userLocation.toString());
-            }
-
-        };
-    }
-
-    @Bean
-    public CommandLineRunner feedbackDemo(FeedbackRepository repository) {
-        return (args) -> {
-
-            User user = new User();
-            user.setUserName("rramir3");
-            user.setFirstName("Rolando");
-            user.setLastName("Ramirez");
-
-            Feedback feedbackTest = new Feedback();
-            feedbackTest.setId(0);
-            feedbackTest.setUser(user);
-            feedbackTest.setRating(0);
-            feedbackTest.setComments("comments");
-
-            repository.save(feedbackTest);
-
-            for (Feedback feedback : repository.findAll()) {
-                //iterate over each feedback (one at this point), and log their information
-                log.info(feedback.toString());
-            }
-
+            Feedback feedbackTest = Feedback.builder()
+                    .userName(savedUser.getUserName())
+                    .rating(3)
+                    .comments("It is ok I guess")
+                    .build();
+            feedbackRepository.saveAndFlush(feedbackTest);
         };
     }
 }

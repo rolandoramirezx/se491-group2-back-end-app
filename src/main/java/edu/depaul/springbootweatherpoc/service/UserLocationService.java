@@ -1,19 +1,23 @@
 package edu.depaul.springbootweatherpoc.service;
 
 
-import edu.depaul.springbootweatherpoc.weather.entity.User;
-import edu.depaul.springbootweatherpoc.weather.model.Location;
-import edu.depaul.springbootweatherpoc.weather.repository.UserLocationRepository;
+import edu.depaul.springbootweatherpoc.model.Location;
+import edu.depaul.springbootweatherpoc.repository.LocationRepository;
+//import edu.depaul.springbootweatherpoc.weather.repository.UserLocationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 public class UserLocationService {
-    private final UserLocationRepository userLocationRepository;
+//    private final UserLocationRepository userLocationRepository;
+    private final LocationRepository locationRepository;
 
-    public UserLocationService(UserLocationRepository userLocationRepository) {
-        this.userLocationRepository = userLocationRepository;
+    public UserLocationService(
+//            UserLocationRepository userLocationRepository,
+                               LocationRepository locationRepository) {
+//        this.userLocationRepository = userLocationRepository;
+        this.locationRepository = locationRepository;
     }
 
     /**
@@ -21,11 +25,10 @@ public class UserLocationService {
      * @param userName
      * @return
      */
-    public List<Location> getUserLocations(String userName) {
+    public List<edu.depaul.springbootweatherpoc.entity.Location> getUserLocationsByUsername(String userName) {
 
         //TODO - use userLocationRepository to check for locations associated with the username
-
-        return null;
+        return this.locationRepository.findAllByUserName(userName);
     }
 
     /**

@@ -1,33 +1,27 @@
 package edu.depaul.springbootweatherpoc.weather.controller;
 
 import edu.depaul.springbootweatherpoc.service.UserLocationService;
+import edu.depaul.springbootweatherpoc.service.UserService;
+import edu.depaul.springbootweatherpoc.weather.entity.User;
 import edu.depaul.springbootweatherpoc.weather.model.Location;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import edu.depaul.springbootweatherpoc.weather.model.LoginDto;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 @RestController
 @RequestMapping("login")
 public class LoginController {
-    private final UserLocationService userLocationService;
+    private final UserService userService;
 
-    public LoginController(UserLocationService userLocationService) {
-        this.userLocationService = userLocationService;
+    public LoginController(UserService userService) {
+        this.userService = userService;
     }
 
-    /**
-     * Endpoint used to check for and return any locations associated with a username
-     * @param userName
-     * @return
-     */
-    @GetMapping("/locations/user/{userName}")
-    public List<Location> getLocationsByUserName(@PathVariable("userName") String userName) {
 
-        //TODO - use service to check for any locations associated with the username and return them if any are found
-
-        return null;
+    @PostMapping
+    public User login(@RequestBody LoginDto credentials){
+       return this.userService.login(credentials.getUserName(),credentials.getPassword());
     }
 
 }

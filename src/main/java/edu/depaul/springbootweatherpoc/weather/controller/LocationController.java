@@ -23,9 +23,7 @@ public class LocationController {
     @PostMapping("/user/{userName}")
     public void saveLocation(@PathVariable("userName") String userName, @RequestBody Location location) {
 
-        //TODO - use service to save location and username, which will allows us to get locations for this user in the future
-
-        return;
+         this.userLocationService.saveUserLocation(userName,location);
     }
 
     /**

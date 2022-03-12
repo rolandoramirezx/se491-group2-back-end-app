@@ -1,10 +1,13 @@
 package edu.depaul.springbootweatherpoc.weather.repository;
 
+import edu.depaul.springbootweatherpoc.weather.entity.Location;
 import edu.depaul.springbootweatherpoc.weather.entity.UserLocation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface UserLocationRepository extends JpaRepository<UserLocation, Long> {
 
-    //TODO - add method to find locations username (you can find an example in the LocationRepository)
-
+    List<Location> findUserLocationByUserName(String userName);
+    List<Location> findAllUserLocationsByUserName(String userName);
 }

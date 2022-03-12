@@ -1,10 +1,10 @@
 package edu.depaul.springbootweatherpoc.service;
 
 
+import edu.depaul.springbootweatherpoc.weather.entity.User;
 import edu.depaul.springbootweatherpoc.weather.model.Location;
 import edu.depaul.springbootweatherpoc.weather.repository.UserLocationRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.*;
 
@@ -21,7 +21,7 @@ public class UserLocationService {
      * @param userName
      * @return
      */
-    public List<Location> getUserLocation(String userName) {
+    public List<Location> getUserLocations(String userName) {
 
         //TODO - use userLocationRepository to check for locations associated with the username
 
@@ -33,7 +33,7 @@ public class UserLocationService {
      * @param userName
      * @param location
      */
-    public void saveLocation(@PathVariable("userName") String userName, @PathVariable("location") Location location ) {
+    public void saveUserLocation(String userName, Location location ) {
 
         //TODO - use userLocationRepository to save location and associate it with the username
 

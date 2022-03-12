@@ -22,7 +22,7 @@ public class LoginController {
      * @param userName
      * @return
      */
-    @GetMapping("/userName/{userName}")
+    @GetMapping("/locations/user/{userName}")
     public List<Location> getLocationsByUserName(@PathVariable("userName") String userName) {
 
         //TODO - use service to check for any locations associated with the username and return them if any are found

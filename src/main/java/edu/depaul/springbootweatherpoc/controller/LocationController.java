@@ -1,40 +1,28 @@
 package edu.depaul.springbootweatherpoc.controller;
-
-import edu.depaul.springbootweatherpoc.model.Location;
+import edu.depaul.springbootweatherpoc.entity.Location;
 import org.springframework.web.bind.annotation.*;
-import edu.depaul.springbootweatherpoc.service.UserLocationService;
+import edu.depaul.springbootweatherpoc.service.LocationService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("location")
 public class LocationController {
-    private final UserLocationService userLocationService;
+    private final LocationService locationService;
 
-    public LocationController (UserLocationService userLocationService) {
-        this.userLocationService = userLocationService;
-    }
-
-    /**
-     * Endpoint used to save a location viewed by a user
-     * @param userName
-     * @param location
-     */
-    @PostMapping("/user/{userName}")
-    public void saveLocation(@PathVariable("userName") String userName, @RequestBody Location location) {
-         this.userLocationService.saveUserLocation(userName,location);
+    public LocationController (LocationService locationService) {
+        this.locationService = locationService;
     }
 
     /**
      * Endpoint used to check for and return any locations associated with a username
-     * @param userName
-     * @return
+     * @param userName the user name to get locations for
+     * @return a list of recently viewed locations by user
      */
-    @GetMapping("/user/{userName}")
-    public List<edu.depaul.springbootweatherpoc.entity.Location> getLocationsByUserName(@PathVariable("userName") String userName) {
-
-        //TODO - use service to check for any locations associated with the username and return them if any are found
-        return this.userLocationService.getUserLocationsByUsername(userName);
+    @GetMapping
+    public List<Location> getLocationsByUserName(
+            @RequestParam(value = "userName") String userName) {
+        return this.locationService.getUserLocationsByUsername(userName);
     }
 
 }

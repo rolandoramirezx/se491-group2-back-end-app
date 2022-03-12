@@ -5,6 +5,7 @@ import edu.depaul.springbootweatherpoc.repository.FeedbackRepository;
 import edu.depaul.springbootweatherpoc.repository.LocationRepository;
 import edu.depaul.springbootweatherpoc.repository.LoginRepository;
 import edu.depaul.springbootweatherpoc.repository.UserRepository;
+import edu.depaul.springbootweatherpoc.service.LocationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -28,7 +29,7 @@ public class SpringBootWeatherPocApplication {
     public CommandLineRunner demo(
             UserRepository userRepository,
             LoginRepository loginRepository,
-            LocationRepository locationRepository,
+            LocationService locationService,
             FeedbackRepository feedbackRepository) {
         return (args) -> {
             //save a user to USERS table
@@ -44,7 +45,6 @@ public class SpringBootWeatherPocApplication {
             Login testLogin = Login.builder()
                     .userName(savedUser.getUserName())
                     .build();
-            testLogin.setUserName(savedUser.getUserName());
             loginRepository.saveAndFlush(testLogin);
 
             Location testLocation1 = Location.builder()
@@ -65,11 +65,18 @@ public class SpringBootWeatherPocApplication {
                     .userName(savedUser.getUserName())
                     .build();
 
-            List<Location> locations = new ArrayList<>();
-            locations.add(testLocation1);
-            locations.add(testLocation2);
-            locationRepository.saveAllAndFlush(locations);
+            Location testLocation3 = Location.builder()
+                    .cityName("Chicago")
+                    .zipCode("60016")
+                    .latitude(42.0334)
+                    .longitude(-87.8834)
+                    .dateCreated(Instant.now())
+                    .userName(savedUser.getUserName())
+                    .build();
 
+            locationService.addRecentlyViewedLocation(testLocation1);
+            locationService.addRecentlyViewedLocation(testLocation2);
+            locationService.addRecentlyViewedLocation(testLocation3);
 
             Feedback feedbackTest = Feedback.builder()
                     .userName(savedUser.getUserName())

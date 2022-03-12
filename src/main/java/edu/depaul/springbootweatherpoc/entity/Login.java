@@ -2,17 +2,16 @@ package edu.depaul.springbootweatherpoc.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
-
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Accessors
 @Table(name = "LOGIN")
 public class Login {
 

@@ -1,19 +1,15 @@
 package edu.depaul.springbootweatherpoc.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
+import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.Instant;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Builder
 @Entity
 @Table(name="LOCATIONS")

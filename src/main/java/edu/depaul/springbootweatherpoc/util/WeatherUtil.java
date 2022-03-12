@@ -52,16 +52,13 @@ public class WeatherUtil {
         JSONObject weather = (JSONObject) description.get(0);
 
         Weather res = new Weather();
-        res.setTemp((Double) current.get("temp"));
-        try{
-            res.setWindSpeed((Double) current.get("wind_speed"));
-        } catch (Exception e){
-            Long windSpeed = (Long) current.get("wind_speed");
-            res.setWindSpeed(windSpeed.doubleValue());
-        }
-        res.setClouds((Long) current.get("clouds"));
-        res.setHumidity((Long) current.get("humidity"));
-        String mainDescription = getMainDescription((String) weather.get("description"));
+
+        String mainDescription = getMainDescription((weather.get("description").toString()));
+
+        res.setTemp(Double.parseDouble(current.get("temp").toString()));
+        res.setWindSpeed(Double.parseDouble("100"));
+        res.setClouds(Long.parseLong(current.get("clouds").toString()));
+        res.setHumidity(Long.parseLong(current.get("humidity").toString()));
         res.setWeatherDescription(mainDescription);
 
         return res;
@@ -82,39 +79,25 @@ public class WeatherUtil {
             Weather weather = new Weather();
 
             JSONObject jsonObject = (JSONObject) forecast;
-            Long timestamp = (Long) jsonObject.get("dt");
+            Long timestamp = Long.parseLong(jsonObject.get("dt").toString());
             java.util.Date time = new java.util.Date(timestamp * 1000);
             hourlyForecast.setDate(time);
             hourlyForecast.setDay(getDay(time.getDay()));
             hourlyForecast.setHour(time.getHours());
 
-            weather.setClouds((Long) jsonObject.get("clouds"));
-            try {
-                //the OpenWeather API does not always put temperature in a double format, so we need to adjust our logic as needed
-                weather.setTemp((Double) jsonObject.get("temp"));
-            } catch (Exception e) {
-                //when the temperature is not in a double format, we know it's in a long format, so we can use that value and convert it to a double
-                System.out.println("unable to convert temp to double");
-                Long temp = (Long) jsonObject.get("temp");
-                weather.setTemp(temp.doubleValue());
-            }
+            weather.setClouds(Long.parseLong(jsonObject.get("clouds").toString()));
+            weather.setTemp(Double.parseDouble(jsonObject.get("temp").toString()));
+            weather.setWindSpeed(Double.parseDouble(jsonObject.get("wind_speed").toString()));
+            weather.setHumidity(Long.parseLong(jsonObject.get("humidity").toString()));
 
-            try {
-                weather.setWindSpeed((Double) jsonObject.get("wind_speed"));
-            } catch (Exception e) {
-                System.out.println("unable to convert temp to double");
-                Long windSpeed = (Long) jsonObject.get("wind_speed");
-                weather.setTemp(windSpeed.doubleValue());
-            }
-            weather.setHumidity((Long) jsonObject.get("humidity"));
             JSONArray currentWeather = (JSONArray) jsonObject.get("weather");
             JSONObject description = (JSONObject) currentWeather.get(0);
-            String mainDescription = getMainDescription((String) description.get("description"));
+
+            String mainDescription = getMainDescription(description.get("description").toString());
             weather.setWeatherDescription(mainDescription);
             hourlyForecast.setWeather(weather);
 
             list.add(hourlyForecast);
-
         }
 
         return (list.toArray(new HourlyForecast[list.size()]));
@@ -135,34 +118,24 @@ public class WeatherUtil {
             Weather weather = new Weather();
 
             JSONObject jsonObject = (JSONObject) forecast;
-            Long timestamp = (Long) jsonObject.get("dt");
+            Long timestamp = Long.parseLong(jsonObject.get("dt").toString());
             java.util.Date time = new java.util.Date(timestamp * 1000);
             dayForecast.setDate(time);
             dayForecast.setDayOfWeek(getDay(time.getDay()));
 
             weather.setClouds((Long) jsonObject.get("clouds"));
-            try {
-                //the OpenWeather API stores daily temperature in its own object (instead of single value)
-                // so, we need to choose which temperature to use in our Weather object
-                JSONObject temp = ((JSONObject) jsonObject.get("temp"));
-                Double minTemp = (Double) temp.get("min");
-                Double maxTemp = (Double) temp.get("max");
-                Double average = (minTemp + maxTemp) / 2.0;
-                weather.setTemp(average);
-            } catch (Exception e) {
-                System.out.println("unable to convert temp to double");
-            }
-            try {
-                weather.setWindSpeed((Double) jsonObject.get("wind_speed"));
-            } catch (Exception e) {
-                System.out.println("unable to convert temp to double");
-                Long windSpeed = (Long) jsonObject.get("wind_speed");
-                weather.setTemp(windSpeed.doubleValue());
-            }
-            weather.setHumidity((Long) jsonObject.get("humidity"));
+
+            JSONObject temp = ((JSONObject) jsonObject.get("temp"));
+            Double minTemp = Double.parseDouble(temp.get("min").toString());
+            Double maxTemp = Double.parseDouble(temp.get("max").toString());
+            Double average = (minTemp + maxTemp) / 2.0;
+
+            weather.setTemp(average);
+            weather.setWindSpeed(Double.parseDouble(jsonObject.get("wind_speed").toString()));
+            weather.setHumidity(Long.parseLong(jsonObject.get("humidity").toString()));
             JSONArray currentWeather = (JSONArray) jsonObject.get("weather");
             JSONObject description = (JSONObject) currentWeather.get(0);
-            String mainDescription = getMainDescription((String) description.get("description"));
+            String mainDescription = getMainDescription(description.get("description").toString());
             weather.setWeatherDescription(mainDescription);
             dayForecast.setWeather(weather);
 
@@ -187,34 +160,22 @@ public class WeatherUtil {
         DayForecast dayForecast = new DayForecast();
         Weather weather = new Weather();
 
-        Long timestamp = (Long) forecast.get("dt");
+        Long timestamp =  Long.parseLong(forecast.get("dt").toString());
         java.util.Date time = new java.util.Date(timestamp * 1000);
         dayForecast.setDate(time);
         dayForecast.setDayOfWeek(getDay(time.getDay()));
 
-        weather.setClouds((Long) forecast.get("clouds"));
-        try {
-            //the OpenWeather API stores daily temperature in its own object (instead of single value)
-            // so, we need to choose which temperature to use in our Weather object
-            JSONObject temp = ((JSONObject) forecast.get("temp"));
-            Double minTemp = (Double) temp.get("min");
-            Double maxTemp = (Double) temp.get("max");
-            Double average = (minTemp + maxTemp) / 2.0;
-            weather.setTemp(average);
-        } catch (Exception e) {
-            System.out.println("unable to convert temp to double");
-        }
-        try {
-            weather.setWindSpeed((Double) forecast.get("wind_speed"));
-        } catch (Exception e) {
-            System.out.println("unable to convert temp to double");
-            Long windSpeed = (Long) forecast.get("wind_speed");
-            weather.setTemp(windSpeed.doubleValue());
-        }
-        weather.setHumidity((Long) forecast.get("humidity"));
+        weather.setClouds(Long.parseLong(forecast.get("clouds").toString()));
+        JSONObject temp = ((JSONObject) forecast.get("temp"));
+        Double minTemp = Double.parseDouble(temp.get("min").toString());
+        Double maxTemp = Double.parseDouble(temp.get("max").toString());
+        Double average = (minTemp + maxTemp) / 2.0;
+        weather.setTemp(average);
+        weather.setWindSpeed(Double.parseDouble(forecast.get("wind_speed").toString()));
+        weather.setHumidity(Long.parseLong(forecast.get("humidity").toString()));
         JSONArray currentWeather = (JSONArray) forecast.get("weather");
         JSONObject description = (JSONObject) currentWeather.get(0);
-        String mainDescription = getMainDescription((String) description.get("description"));
+        String mainDescription = getMainDescription(description.get("description").toString());
         weather.setWeatherDescription(mainDescription);
         dayForecast.setWeather(weather);
 

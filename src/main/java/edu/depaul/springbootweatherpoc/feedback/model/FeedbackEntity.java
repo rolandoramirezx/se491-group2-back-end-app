@@ -17,6 +17,7 @@ public class FeedbackEntity {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     Long id;
 
+    @Column(name= "user_name")
     String userId;
 
     Integer rating;

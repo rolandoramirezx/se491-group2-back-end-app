@@ -1,24 +1,43 @@
 package edu.depaul.springbootweatherpoc.weather.controller;
 
 import edu.depaul.springbootweatherpoc.weather.model.Location;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import edu.depaul.springbootweatherpoc.service.LocationService;
+import org.springframework.web.bind.annotation.*;
+import edu.depaul.springbootweatherpoc.service.UserLocationService;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("weather")
+@RequestMapping("location")
 public class LocationController {
-    private final LocationService locationService;
+    private final UserLocationService userLocationService;
 
-    public LocationController (LocationService locationService) {
-        this.locationService = locationService;
+    public LocationController (UserLocationService userLocationService) {
+        this.userLocationService = userLocationService;
     }
 
-    @GetMapping("/userName/{userName}")
-    public void saveLocation(@PathVariable("userName") String userName, @PathVariable("location") Location location ) {
-        return ;
+    /**
+     * Endpoint used to save a location viewed by a user
+     * @param userName
+     * @param location the location viewed by the user
+     */
+    @PostMapping("/username/{userName}")
+    public void saveLocation(@PathVariable("userName") String userName, @RequestBody Location location ) {
+
+        //TODO - use service to save location and username, which will allows us to get locations for this user in the future
+
+        return;
+    }
+
+    /**
+     * Endpoint used to check for and return any locations associated with a username
+     * @param userName
+     */
+    @GetMapping("/username/{userName}")
+    public List<Location> getLocationsByUserName(@PathVariable("userName") String userName) {
+
+        //TODO - use service to check for any locations associated with the username and return them if any are found
+
+        return null;
     }
 
 }

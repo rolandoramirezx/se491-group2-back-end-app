@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserLocationRepository extends JpaRepository<UserLocation, Long> {
 
+    //TODO - add method to find locations username (you can find an example in the LocationRepository)
+
 }

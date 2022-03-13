@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "bfb57c88-75a6-464f-9ad7-83fd33d98bbe",
+		"name": "Weather App API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get locations by username",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/location?userName=rramir3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"location"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "rramir3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get weather by city",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/weather/city/phoenix?userName=rramir3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"weather",
+						"city",
+						"phoenix"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "rramir3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get weather by zip code",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/weather/zip/60009?userName=rramir3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"weather",
+						"zip",
+						"60009"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "rramir3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get weather by coords",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/weather/coords/42.050804/-87.853099?userName=rramir3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"weather",
+						"coords",
+						"42.050804",
+						"-87.853099"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "rramir3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Correct",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"rramir3\",\r\n    \"password\": \"abc123$Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Incorrrect",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"rramir312\",\r\n    \"password\": \"abc123$Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Feedback submit",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"rramir3\",\r\n    \"rating\": 5,\r\n    \"comments\": \"Awesome!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/feedback",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"feedback"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Feedback submit Failure",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"WRONG USER NAME\",\r\n    \"rating\": 5,\r\n    \"comments\": \"Awesome!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/feedback",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"feedback"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

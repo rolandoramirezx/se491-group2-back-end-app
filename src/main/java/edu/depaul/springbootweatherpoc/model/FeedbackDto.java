@@ -1,4 +1,4 @@
-package edu.depaul.springbootweatherpoc.feedback.model;
+package edu.depaul.springbootweatherpoc.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -9,7 +9,7 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FeedbackDto {
-    String userId;
+    String userName;
     Integer rating;
     String comments;
 }

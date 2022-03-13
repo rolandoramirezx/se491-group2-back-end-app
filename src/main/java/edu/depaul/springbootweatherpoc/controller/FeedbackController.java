@@ -1,7 +1,7 @@
-package edu.depaul.springbootweatherpoc.feedback.controller;
+package edu.depaul.springbootweatherpoc.controller;
 
-import edu.depaul.springbootweatherpoc.feedback.model.FeedbackDto;
-import edu.depaul.springbootweatherpoc.feedback.service.FeedbackService;
+import edu.depaul.springbootweatherpoc.model.FeedbackDto;
+import edu.depaul.springbootweatherpoc.service.FeedbackService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +23,6 @@ public class FeedbackController {
             this.feedbackService.createFeedback(feedbackDto);
             return ResponseEntity.ok().build();
         } catch(Exception exception) {
-            exception.printStackTrace();
             return ResponseEntity.internalServerError().build();
         }
     }

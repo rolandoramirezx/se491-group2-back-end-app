@@ -1,9 +1,9 @@
 package edu.depaul.springbootweatherpoc;
 
-import edu.depaul.springbootweatherpoc.entity.Feedback;
 import edu.depaul.springbootweatherpoc.entity.Location;
 import edu.depaul.springbootweatherpoc.entity.User;
-import edu.depaul.springbootweatherpoc.repository.FeedbackRepository;
+import edu.depaul.springbootweatherpoc.model.FeedbackDto;
+import edu.depaul.springbootweatherpoc.service.FeedbackService;
 import edu.depaul.springbootweatherpoc.service.LocationService;
 import edu.depaul.springbootweatherpoc.service.UserService;
 import org.slf4j.Logger;
@@ -28,7 +28,7 @@ public class SpringBootWeatherPocApplication {
     public CommandLineRunner demo(
             UserService userService,
             LocationService locationService,
-            FeedbackRepository feedbackRepository) {
+            FeedbackService feedbackService) {
         return (args) -> {
             //save a user to USERS table
 
@@ -77,12 +77,13 @@ public class SpringBootWeatherPocApplication {
             locationService.addRecentlyViewedLocation(testLocation2);
             locationService.addRecentlyViewedLocation(testLocation3);
 
-            Feedback feedbackTest = Feedback.builder()
+            FeedbackDto feedbackTest = FeedbackDto.builder()
                     .userName(savedUser.getUserName())
                     .rating(3)
                     .comments("It is ok I guess")
                     .build();
-            feedbackRepository.saveAndFlush(feedbackTest);
+
+            feedbackService.createFeedback(feedbackTest);
         };
     }
 }

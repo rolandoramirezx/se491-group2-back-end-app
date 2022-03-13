@@ -20,9 +20,6 @@ public class Location {
     @Column(name="location_id")
     private Long locationId;
 
-    @Column(name="zip_code")
-    private String zipCode;
-
     @Column(name="city_name")
     private String cityName;
 
@@ -46,7 +43,6 @@ public class Location {
     @Override
     public String toString() {
         return "Location{" +
-                "zipCode='" + zipCode + '\'' +
                 ", cityName='" + cityName + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +

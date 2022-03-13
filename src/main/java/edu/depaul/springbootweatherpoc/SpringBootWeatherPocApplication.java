@@ -49,7 +49,6 @@ public class SpringBootWeatherPocApplication {
 
             Location testLocation1 = Location.builder()
                     .cityName("Chicago")
-                    .zipCode("60632")
                     .latitude(41.8781)
                     .longitude(-87.6298)
                     .dateCreated(Instant.now())
@@ -58,18 +57,18 @@ public class SpringBootWeatherPocApplication {
 
             Location testLocation2 = Location.builder()
                     .cityName("Des Plaines")
-                    .zipCode("60016")
                     .latitude(42.0334)
                     .longitude(-87.8834)
                     .dateCreated(Instant.now())
                     .userName(savedUser.getUserName())
                     .build();
 
+
+            // Duplicate by city name should replace the last one
             Location testLocation3 = Location.builder()
                     .cityName("Chicago")
-                    .zipCode("60016")
-                    .latitude(42.0334)
-                    .longitude(-87.8834)
+                    .latitude(41.8781)
+                    .longitude(-87.6298)
                     .dateCreated(Instant.now())
                     .userName(savedUser.getUserName())
                     .build();

@@ -1,6 +1,5 @@
 CREATE TABLE LOCATIONS (
     location_id bigint auto_increment primary key not null,
-    zip_code varchar(100),
     city_name varchar(100) not null,
     latitude double,
     longitude double,

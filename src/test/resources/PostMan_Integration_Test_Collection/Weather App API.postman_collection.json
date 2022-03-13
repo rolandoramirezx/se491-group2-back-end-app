@@ -56,6 +56,32 @@
 			"response": []
 		},
 		{
+			"name": "Get weather by city with fake alert",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/weather/city/miami?userName=rramir3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"weather",
+						"city",
+						"miami"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "rramir3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get weather by zip code",
 			"request": {
 				"method": "GET",

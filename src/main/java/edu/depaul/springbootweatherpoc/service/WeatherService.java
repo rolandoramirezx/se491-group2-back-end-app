@@ -1,6 +1,7 @@
 package edu.depaul.springbootweatherpoc.service;
 
 import edu.depaul.springbootweatherpoc.entity.Location;
+import edu.depaul.springbootweatherpoc.model.Alert;
 import edu.depaul.springbootweatherpoc.model.Geolocation;
 import edu.depaul.springbootweatherpoc.util.LocationUtils;
 import edu.depaul.springbootweatherpoc.util.WeatherUtil;
@@ -9,8 +10,12 @@ import edu.depaul.springbootweatherpoc.model.WeatherResult;
 import edu.depaul.springbootweatherpoc.repository.openweather.OpenWeatherApiRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Locale;
+
 @Service
 public class WeatherService {
+    private final static String FAKE_ALERT_CITY = "Miami";
+
     private final GeoLocationService geoLocationService;
     private final LocationService locationService;
     private final OpenWeatherApiRepository openWeatherApiRepository;
@@ -41,7 +46,7 @@ public class WeatherService {
 
     private WeatherResult getWeather(Geolocation geolocation, String userName) {
         OpenWeatherResponse openWeatherResponse = this.openWeatherApiRepository.getWeather(geolocation);
-        WeatherResult weatherResult = weatherUtil.processOpenWeatherResponse(openWeatherResponse);
+        WeatherResult weatherResult = this.convertToWeatherResult(openWeatherResponse);
 
         this.recordLocation(geolocation, userName);
 
@@ -52,5 +57,21 @@ public class WeatherService {
         Location newLocation = LocationUtils.fromGeoLocation(geolocation);
         newLocation.setUserName(userName);
         this.locationService.addRecentlyViewedLocation(newLocation);
+    }
+
+
+    private WeatherResult convertToWeatherResult(OpenWeatherResponse openWeatherResponse){
+        WeatherResult weatherResult = weatherUtil.processOpenWeatherResponse(openWeatherResponse);
+
+        // NOTE This method exists in order to demo an alert if the city is Miami
+        if (openWeatherResponse.getGeolocation().getCityName().equalsIgnoreCase(FAKE_ALERT_CITY)) {
+            Alert fakeAlert = Alert.builder()
+                    .title("[Fake Alert]: Hurricane Nearby")
+                    .message("Evacuate the area, there is a hurricane nearby")
+                    .build();
+            weatherResult.setAlert(fakeAlert);
+        }
+
+        return weatherResult;
     }
 }

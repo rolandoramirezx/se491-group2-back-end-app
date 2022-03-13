@@ -2,8 +2,8 @@ package edu.depaul.springbootweatherpoc.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Accessors
+@Getter
 @Table(name = "LOGIN")
 public class Login {
 
@@ -22,6 +22,9 @@ public class Login {
 
     @Column(name = "user_name")
     private String userName;
+
+    @Column(name = "pass_hash")
+    private String passHash;
 
     @Override
     public String toString() {

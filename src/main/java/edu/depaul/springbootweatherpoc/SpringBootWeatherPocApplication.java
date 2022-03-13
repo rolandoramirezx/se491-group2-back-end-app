@@ -1,11 +1,11 @@
 package edu.depaul.springbootweatherpoc;
 
-import edu.depaul.springbootweatherpoc.entity.*;
+import edu.depaul.springbootweatherpoc.entity.Feedback;
+import edu.depaul.springbootweatherpoc.entity.Location;
+import edu.depaul.springbootweatherpoc.entity.User;
 import edu.depaul.springbootweatherpoc.repository.FeedbackRepository;
-import edu.depaul.springbootweatherpoc.repository.LocationRepository;
-import edu.depaul.springbootweatherpoc.repository.LoginRepository;
-import edu.depaul.springbootweatherpoc.repository.UserRepository;
 import edu.depaul.springbootweatherpoc.service.LocationService;
+import edu.depaul.springbootweatherpoc.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -14,7 +14,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.Instant;
-import java.util.*;
 
 @SpringBootApplication
 public class SpringBootWeatherPocApplication {
@@ -27,25 +26,26 @@ public class SpringBootWeatherPocApplication {
 
     @Bean
     public CommandLineRunner demo(
-            UserRepository userRepository,
-            LoginRepository loginRepository,
+            UserService userService,
             LocationService locationService,
             FeedbackRepository feedbackRepository) {
         return (args) -> {
             //save a user to USERS table
+
+            // NOTE: This app is for demo purposes
+            // only, for a real use case do not put passwords
+            // in src code file
+            String testUserName = "rramir3";
+            String testPassword = "abc123$Z";
+
             User testUser = User.builder()
-                    .userName("rramir3")
+                    .userName(testUserName)
                     .firstName("Rolando")
                     .lastName("Ramirez")
                     .build();
 
-            User savedUser = userRepository.saveAndFlush(testUser);
+            User savedUser = userService.register(testUser, testUserName, testPassword);//userRepository.saveAndFlush(testUser);
             System.out.println(savedUser);
-
-            Login testLogin = Login.builder()
-                    .userName(savedUser.getUserName())
-                    .build();
-            loginRepository.saveAndFlush(testLogin);
 
             Location testLocation1 = Location.builder()
                     .cityName("Chicago")
